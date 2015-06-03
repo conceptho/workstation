@@ -18,7 +18,7 @@ chmod +x netbeans-8.0.2-php-linux.sh
 
 mkdir ~/.conceptho
 
-cp * ~/.conceptho
+cp -R * ~/.conceptho
 ln -s ~/.conceptho/upstart.conf ~/.config/upstart/workstation.conf
-sed -i "s@{HOME}@${HOME}@g" ~/.config/upstart/workstation.conf
+sed -i "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
 sudo start workstation

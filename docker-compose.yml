@@ -1,0 +1,13 @@
+proxy:
+   image: jwilder/nginx-proxy
+   ports:
+      - "80:80"
+   volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+phpmyadmin:
+   build: phpmyadmin
+   environment:
+      VIRTUAL_HOST: pma.localhost
+      PMA_SECRET: something_random
+   volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

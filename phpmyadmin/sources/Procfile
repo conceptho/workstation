@@ -1,0 +1,3 @@
+dockergen: docker-gen -watch -only-exposed -notify "chmod 0655 /www/config.inc.php" /config.inc.php.tmpl /www/config.inc.php
+phpfpm: php5-fpm -F
+nginx: nginx

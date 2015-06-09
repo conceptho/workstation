@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sudo apt-get update --fix-missing
-sudo apt-get install -y dnsmasq git gitg openjdk-7-jre
+sudo apt-get install -y curl dnsmasq git gitg openjdk-7-jre
 echo "address=/localhost/127.0.0.1" | sudo tee /etc/dnsmasq.d/localhost.conf > /dev/null
 sudo service dnsmasq restart 
 
@@ -19,6 +19,6 @@ chmod +x netbeans-8.0.2-php-linux.sh
 mkdir ~/.conceptho
 
 cp -R * ~/.conceptho
-ln -s ~/.conceptho/upstart.conf ~/.config/upstart/workstation.conf
-sed -i "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
+sudo ln -s ~/.conceptho/upstart.conf /etc/init/workstation.conf
+sudo sed -i --follow-symlinks "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
 sudo start workstation

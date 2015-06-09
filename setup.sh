@@ -20,5 +20,5 @@ mkdir ~/.conceptho
 
 cp -R * ~/.conceptho
 sudo ln -s ~/.conceptho/upstart.conf /etc/init/workstation.conf
-sudo sed -i --follow-symlinks "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
+sudo sed -i "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
 sudo start workstation

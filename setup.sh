@@ -3,7 +3,7 @@
 sudo apt-get update --fix-missing
 sudo apt-get install -y curl dnsmasq git gitg openjdk-7-jre
 echo "address=/localhost/127.0.0.1" | sudo tee /etc/dnsmasq.d/localhost.conf > /dev/null
-sudo service dnsmasq restart 
+sudo service dnsmasq restart
 
 sudo wget -qO- https://get.docker.com/ | sh
 
@@ -19,6 +19,16 @@ chmod +x netbeans-8.0.2-php-linux.sh
 mkdir ~/.conceptho
 
 cp -R * ~/.conceptho
-sudo ln -s ~/.conceptho/upstart.conf /etc/init/workstation.conf
-sudo sed -i "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
-sudo start workstation
+
+read -r -p "Ubuntu >= 15.04? [y/n] " response
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+	sudo systemctl enable docker
+	sudo ln -s ~/.conceptho/workstation.service /etc/systemd/system/workstation.service
+	sudo sed -i "s@{HOME}@${HOME}@g" /etc/systemd/system/workstation.service
+	sudo service workstation start
+else
+	sudo ln -s ~/.conceptho/upstart.conf /etc/init/workstation.conf
+	sudo sed -i "s@{HOME}@${HOME}@g" /etc/init/workstation.conf
+	sudo start workstation
+fi

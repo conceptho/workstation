@@ -5,7 +5,7 @@ After=docker.service
 
 [Service]
 Restart=always
-ExecStart=/usr/local/bin/docker-compose -p conceptho -f {HOME}/.conceptho/docker-compose.yml up -d
+ExecStart=/usr/local/bin/docker-compose -p conceptho -f {HOME}/.conceptho/docker-compose.yml up
 ExecStop=/usr/local/bin/docker-compose -f {HOME}/.conceptho/docker-compose.yml kill
 
 [Install]

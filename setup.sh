@@ -46,8 +46,8 @@ then
   wget https://download.jetbrains.com/webide/PhpStorm-${PHPSTORM_VER}.tar.gz
   PHPSTORM_DIR=`tar -zxvf PhpStorm-${PHPSTORM_VER}.tar.gz --directory ~/Documents| head -1 | cut -f1 -d"/"`
   rm -rf ~/Documents/${PHPSTORM_DIR}
-  tar -zxvf PhpStorm-${PHPSTORM_DIR}.tar.gz --directory ~/Documents
-  ~/Documents/${PHPSTORM_VER}/bin/phpstorm.sh &
+  tar -zxvf PhpStorm-${PHPSTORM_VER}.tar.gz --directory ~/Documents
+  ~/Documents/${PHPSTORM_DIR}/bin/phpstorm.sh &
  fi
 
 # NetBeans
@@ -65,7 +65,7 @@ fi
 mkdir ~/.conceptho
 cp -R * ~/.conceptho
 
-if [[ $UBUNTU_VER >= 15.04 | bc ]]
+if [ $(echo "$UBUNTU_VER  >= 15.04" | bc) -eq 1 ]
 then
   sudo systemctl enable docker
   sudo ln -s ~/.conceptho/workstation.service /etc/systemd/system/workstation.service

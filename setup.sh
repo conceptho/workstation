@@ -25,7 +25,7 @@ case $UBUNTU_VER in
    *) echo "Sorry, docker repo unavailable for your Ubuntu version.";;
 esac
 
-sudo echo $DOCKER_REPO > sudo /etc/apt/sources.list.d/docker.list
+sudo echo $DOCKER_REPO | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual docker-engine
 

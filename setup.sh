@@ -1,9 +1,15 @@
 #!/bin/bash
 
+# PROBLEMAS COM DNSMASQ
+# No arquivo /etc/systemd/resolved.conf, adicionar a linha DNSStubListener=no e DNSStubHandler=no
+# No arquivo /etc/dnsmasq.conf, descomentar e alterar o server para server=192.168.1.1 (ip da máquina)
+# Reiniciar o systemd-resolved: sudo systemctl reload-or-restart systemd-resolved
+# Reiniciar o dnsmasq: sudo systemctl reload-or-restart dnsmasq
+
 # global vars.
 UBUNTU_VER=$(lsb_release -sr)
 PHPSTORM_VER=2016.2.1
-DOCKERCOMPOSE_VERSION=1.8.0
+DOCKERCOMPOSE_VERSION=18.06.0-ce
 
 # apt-get init.
 sudo apt-get update --fix-missing
@@ -14,6 +20,7 @@ sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
 
 # dnsmasq
 echo "address=/localhost/127.0.0.1" | sudo tee /etc/dnsmasq.d/localhost.conf > /dev/null
+echo "address=/docker/127.0.0.1" | sudo tee /etc/dnsmasq.d/docker.conf > /dev/null
 sudo service dnsmasq restart
 
 # add docker repo.

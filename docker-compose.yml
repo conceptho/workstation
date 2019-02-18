@@ -11,3 +11,16 @@ phpmyadmin:
       PMA_SECRET: something_random
    volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+portainer:
+   image: portainer/portainer
+   command: -H unix:///var/run/docker.sock
+   volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+   environment:
+      VIRTUAL_HOST: portainer.docker
+      VIRTUAL_PORT: 9000
+      DEFAULT_HOST: portainer.docker
+
+volumes:
+  portainer_data:

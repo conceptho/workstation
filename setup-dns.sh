@@ -20,4 +20,5 @@ cp -R * ~/.conceptho
 sudo systemctl enable docker
 sudo ln -s ~/.conceptho/workstation.service /etc/systemd/system/workstation.service
 sudo sed -i "s@{HOME}@${HOME}@g" /etc/systemd/system/workstation.service
+sudo docker network create general
 sudo service workstation start

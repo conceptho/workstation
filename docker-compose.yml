@@ -3,20 +3,26 @@ version: '2'
 services:
    proxy:
       image: jwilder/nginx-proxy
+      networks:
+        - general
       ports:
          - "80:80"
       volumes:
          - /var/run/docker.sock:/tmp/docker.sock
    phpmyadmin:
       build: phpmyadmin
+      networks:
+        - general
       environment:
-         VIRTUAL_HOST: pma.localhost
+         VIRTUAL_HOST: pma.docker
          PMA_SECRET: something_random
       volumes:
          - /var/run/docker.sock:/var/run/docker.sock
    portainer:
       image: portainer/portainer
       command: -H unix:///var/run/docker.sock
+      networks:
+        - general
       volumes:
          - /var/run/docker.sock:/var/run/docker.sock
          - portainer_data:/data
@@ -27,3 +33,7 @@ services:
 
 volumes:
    portainer_data:
+
+networks:
+  general:
+     external: true

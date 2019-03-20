@@ -5,6 +5,8 @@ location / {
 }
 
 location /api/websocket/ {
+  proxy_read_timeout 1d;
+  proxy_buffering off;
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
   proxy_http_version 1.1;

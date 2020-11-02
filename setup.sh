@@ -1,10 +1,34 @@
 #!/bin/bash
 
 # PROBLEMAS COM DNSMASQ
-# No arquivo /etc/systemd/resolved.conf, adicionar a linha DNSStubListener=no e DNSStubHandler=no
-# No arquivo /etc/dnsmasq.conf, descomentar e alterar o server para server=192.168.1.1 (ip da máquina)
-# Reiniciar o systemd-resolved: sudo systemctl reload-or-restart systemd-resolved
-# Reiniciar o dnsmasq: sudo systemctl reload-or-restart dnsmasq
+# Ao instalar o dnsmasq e tentar iniciá-lo, dará conflito com a porta 53, que já está em uso pelo systemd-resolved.
+# Para resolver, é preciso seguir os passos a seguir:
+#
+# 1 - Desativar o systemd-resolved
+# sudo systemctl disable systemd-resolved && sudo systemctl stop systemd-resolved
+# 
+# 2 - Remover o link simbólico resolv.conf
+# sudo rm /etc/resolv.conf
+# 
+# 3 - Criar um novo arquivo /etc/resolv.conf com o seguinte conteúdo
+# nameserver 127.0.0.1
+# nameserver 8.8.8.8
+#
+# 4 - Editar o arquivo /etc/dnsmasq.conf, removendo o comentário nas seguintes linhas: (após já ter instalado o dnsmasq)
+# port=53 //Essa linha deve ser descomentada e alterar 5353 para 53
+# domain-needed
+# bogus-priv
+# strict-order
+# expand-hosts
+# listen-address=127.0.0.1
+# 
+# 5 - Editar o arquivo /etc/NetworkManager/NetworkManager.conf, para que ele não gere um novo /etc/resolv.conf a cada reinicialização
+# Neste arquivo, adicionar dns=none na seção [main]
+# 
+# 6 - Reiniciar o dnsmasq com o comando:
+# sudo systemctl restart dnsmasq
+# 
+# Acessar este link como referência: https://computingforgeeks.com/install-and-configure-dnsmasq-on-ubuntu-18-04-lts/
 
 # global vars.
 UBUNTU_VER=$(lsb_release -sr)

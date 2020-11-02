@@ -22,7 +22,7 @@ services:
    portainer:
       networks:
          - general
-      image: portainer/portainer
+      image: portainer/portainer-ce
       command: -H unix:///var/run/docker.sock
       networks:
         - general
